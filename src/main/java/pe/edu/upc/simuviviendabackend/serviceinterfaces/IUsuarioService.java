@@ -1,0 +1,27 @@
+package pe.edu.upc.simuviviendabackend.serviceinterfaces;
+
+import pe.edu.upc.simuviviendabackend.entities.Usuario;
+
+import java.util.List;
+
+public interface IUsuarioService {
+    Usuario insert(Usuario usuario);
+
+    public List<Usuario> list();
+
+    public void delete(Long idUsuario);
+
+    public Usuario listarId(Long idUsuario);
+
+    public void updateUser(Usuario user);
+
+    public List<Usuario> searchUser(String email);
+
+    public  List<Usuario> searchByMail(String email);
+
+    void insertarUsuarioConRol(String email, String password,
+                               String username);
+    public List<Usuario> listByRole(String roleName);
+
+    public Usuario finduser(String username);
+}
