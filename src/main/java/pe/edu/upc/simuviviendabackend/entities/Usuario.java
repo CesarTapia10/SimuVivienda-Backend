@@ -39,17 +39,12 @@ public class Usuario {
     @JoinColumn(name = "user_id")
     private List<roles> roles;
 
-    @Column(name = "fecha_creacion")
-    private LocalDate fecha_registro;
-
-    @Column(name = "fecha_modificacion")
-    private LocalDate fecha_modificacion;
 
     public Usuario(){
 
     }
 
-    public Usuario(int id, String username, String email, String pais, String password, Boolean enabled, List<pe.edu.upc.simuviviendabackend.entities.roles> roles, LocalDate fecha_registro, LocalDate fecha_modificacion) {
+    public Usuario(int id, String username, String email, String pais, String password, Boolean enabled, List<pe.edu.upc.simuviviendabackend.entities.roles> roles) {
         this.id = id;
         this.username = username;
         this.email = email;
@@ -57,8 +52,6 @@ public class Usuario {
         this.password = password;
         this.enabled = enabled;
         this.roles = roles;
-        this.fecha_registro = fecha_registro;
-        this.fecha_modificacion = fecha_modificacion;
     }
 
     public int getId() {
@@ -110,19 +103,4 @@ public class Usuario {
         this.roles = roles;
     }
 
-    public LocalDate getFecha_modificacion() {
-        return fecha_modificacion;
-    }
-
-    public void setFecha_modificacion(LocalDate fecha_modificacion) {
-        this.fecha_modificacion = fecha_modificacion;
-    }
-
-    public LocalDate getFecha_registro() {
-        return fecha_registro;
-    }
-
-    public void setFecha_registro(LocalDate fecha_registro) {
-        this.fecha_registro = fecha_registro;
-    }
 }

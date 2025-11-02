@@ -28,11 +28,6 @@ public class UsuarioDTO {
 
 
 
-    private LocalDate fecha_registro;
-
-
-    private LocalDate fecha_modificacion;
-
     public int getId() {
         return id;
     }
@@ -73,20 +68,4 @@ public class UsuarioDTO {
         this.password = password;
     }
 
-
-    public LocalDate getFecha_modificacion() {
-        return fecha_modificacion;
-    }
-
-    public void setFecha_modificacion(LocalDate fecha_modificacion) {
-        this.fecha_modificacion = fecha_modificacion;
-    }
-
-    public LocalDate getFecha_registro() {
-        return fecha_registro;
-    }
-
-    public void setFecha_registro(LocalDate fecha_registro) {
-        this.fecha_registro = fecha_registro;
-    }
 }
