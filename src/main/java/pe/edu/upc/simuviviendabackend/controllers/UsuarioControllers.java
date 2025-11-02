@@ -28,7 +28,8 @@ import java.util.stream.Collectors;
 public class UsuarioControllers {
     @Autowired
     private IUsuarioService uS;
-
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
 
     @DeleteMapping("/{id}")
@@ -81,5 +82,47 @@ public class UsuarioControllers {
         ModelMapper m = new ModelMapper();
         UsuarioDTO dto = m.map(uS.finduser(nombreuser), UsuarioDTO.class);
         return dto;
+    }
+    @PostMapping("/create")
+    public ResponseEntity<String> createUser(@RequestBody UsuarioDTO dto) {
+        ModelMapper mapper = new ModelMapper();
+        Usuario user = mapper.map(dto, Usuario.class);
+
+        // Codificar la contraseña
+        String encodedPassword = passwordEncoder.encode(user.getPassword());
+
+        // Llamar al procedimiento almacenado a través del repositorio
+        uS.insertarUsuarioConRol(user.getEmail(), encodedPassword, user.getUsername());
+
+        return ResponseEntity.ok("Usuario creado con rol correctamente");
+    }
+
+
+    @PostMapping("/registroNoAuth")
+    public void registrarNoAuth(@RequestBody UsuarioDTO dto) {
+        ModelMapper m = new ModelMapper();
+        Usuario u = m.map(dto, Usuario.class);
+        String encodedPassword = passwordEncoder.encode(u.getPassword());
+        u.setPassword(encodedPassword);
+        uS.insert(u);
+    }
+
+    @PostMapping
+    public ResponseEntity<UsuarioDTO> registrar(@RequestBody UsuarioDTO dto) {
+        ModelMapper m = new ModelMapper();
+        Usuario us = m.map(dto, Usuario.class);
+        String encodedPassword = passwordEncoder.encode(us.getPassword());
+        us.setPassword(encodedPassword);
+        Usuario newUser = uS.insert(us);
+        UsuarioDTO userResponse = m.map(newUser, UsuarioDTO.class);
+        return new ResponseEntity<>(userResponse, HttpStatus.CREATED);
+    }
+    @PutMapping
+    public void modificar(@RequestBody UsuarioDTO dto) {
+        ModelMapper m = new ModelMapper();
+        Usuario u = m.map(dto, Usuario.class);
+        String encodedPassword = passwordEncoder.encode(u.getPassword());
+        u.setPassword(encodedPassword);
+        uS.updateUser(u);
     }
 }
